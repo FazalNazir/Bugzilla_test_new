@@ -1,0 +1,24 @@
+
+<div class='container card p-3 mt-3'>
+    <h1>New Project</h1> 
+    <%= form_for @project do |form| %>
+    <div class="field form-group">
+        <%= form.label :title,class:"form-label" %><br>
+        <%= form.text_field :title,class:"form-control", required: true %>
+    </div>
+    
+    <div class="field form-group">
+        <%= form.label :Developer_ID,class:"form-label" %><br>
+        <%= form.text_field :developer_id,class:"form-control", required: true %>
+    </div>
+    <div class="field form-group">
+        <%= form.label :Tester_ID,class:"form-label" %><br>
+        <%= form.text_field :tester_id,class:"form-control", required: true %><br>
+    </div>
+    <div class="field form-group">
+        <%= form.label :Creator_ID,class:"form-label" %><br>
+        <%= form.number_field :creator_id,class:"form-control", creator_id: :project_creator_id, value: current_user.id, readonly: true, required: true %>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <% end %>
+</div>

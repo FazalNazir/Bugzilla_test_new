@@ -1,0 +1,11 @@
+<table>
+  <% @project.each do |project| %>
+    <tr>
+      <td><%= project.title %></td>
+      <td><%= link_to 'Edit', edit_project_path(project)%></td>
+      <td><%= link_to 'Add Bugs', new_bug_path(id: project.id)%></td>
+      <td><%= link_to 'Show Bugs', bugs_path %></td>
+      <td><%= link_to 'Remove', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <% end %>
+</table>
+<%= link_to "Add a New Project", new_project_path %>

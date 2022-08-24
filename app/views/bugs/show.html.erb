@@ -1,0 +1,53 @@
+<div class='card flex-container d-flex flex-row p-3 mt-3 justify-content-around'>
+    <div class=' flex-col '>
+     <h1><%= @bug.title %></h1>
+      <div class="field">
+       <p><strong>Title: </strong> <%= @bug.title %></p><br />
+      </div>
+
+      <div class="field">
+       <p><strong>Project: </strong> <%= @bug.proj_id %></p><br />
+        
+      </div>
+    
+      <div class="field">
+        <p><strong>Developer: </strong> <%= @bug.solver_id %></p><br />
+      </div>
+      <div class="field">
+        <p><strong>Creator_ID: </strong> <%= @bug.creator_id %></p><br />
+      </div>
+      <div class="field form-group">
+        <p><strong>Deadline: </strong> <%= @bug.deadline %></p><br />
+      </div>
+
+      <div class="field">
+        <p><strong>Status: </strong> <%= @bug.status %></p><br />  </div>
+      <div class="field">
+        <p><strong>Type: </strong> <%= @bug.type %></p><br />
+      </div>
+      <% if current_user.Developer?%>
+        <div>
+          <%= form_for @bug do |form| %>
+            <div class="field form-group">
+              <%= form.label :Change_Status,class:"form-label" %><br />
+              <% if @bug.type=='Feature'%>
+                <%= form.select :status, options_for_feature_status,{}, class: "form-control"%>
+              <% else %>
+                <%= form.select :status, options_for_bug_status,{}, class: "form-control"%>
+              <% end %>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Status</button>
+          <% end %>
+        </div>
+      <% end %>
+      
+    </div>
+    <div class="field  flex-col w-25">
+        <% if @bug.image.attached? %>
+          <%= image_tag(url_for(@bug.image),class: "w-100")%>
+        <% else %>
+          <p>No screenshot was stored</p>
+        <% end %>
+    </div>
+      
+</div>

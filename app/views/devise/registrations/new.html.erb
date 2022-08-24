@@ -11,7 +11,7 @@
 
       <div class="field form-group">
         <%= f.label :User_Type,class:"form-label" %><br />
-        <%= f.select :type, options_for_select([["Project Manager", 'Manager'], ["Developer", 'Developer'], ["QA Engineer", 'QualityAssurance']]),{},:class=>"form-control", required: true %>
+        <%= f.select :type, options_for_select([["Project Manager", 'Manager'], ["Developer", 'Developer'], ["QA Engineer", 'QualityAssurance']]),{},class:"form-control", required: true %>
       </div>
 
 
@@ -40,3 +40,4 @@
 
   <%= render "devise/shared/links" %>
 </div>
+
