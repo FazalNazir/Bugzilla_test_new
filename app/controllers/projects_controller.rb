@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
 
   def index
-    @project=Project.all
+    @project = Project.all
   end
 
   def show; end
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
 
     if @project.save
       flash[:notice] = 'Project successfully added!'
-      redirect_to project_path(@project)
+      redirect_to projects_path
     else
       flash[:alert] = 'Something wrong with your inputs!'
       render :new
@@ -48,5 +48,4 @@ class ProjectsController < ApplicationController
   def set_project
     @project = Project.find(params[:id])
   end
-
 end

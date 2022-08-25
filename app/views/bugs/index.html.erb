@@ -1,9 +1,22 @@
-<table>
-  <% @bug.each do |bug| %>
+<table class="table">
+  <thead>
     <tr>
-      <td><%= bug.title %></td>
-      <td><%= button_to 'Edit', edit_bug_path(bug), method: 'get'%></td>
-      <td><%= button_to 'Show', bug_path(bug), method: 'get'%></td>
-      <td><%= button_to 'Remove', bug_path(bug), method: 'delete', data: { confirm: 'Are you sure?' } %></td>
+      <th scope="col">ID</th>
+      <th scope="col">Bug Title</th>
+      <th scope="col">Edit Bug</th>
+      <th scope="col">View Bugs</th>
+      <th scope="col">Delete Project</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @bug.each do |b| %>
+    <tr>
+      <th> <%= b.id %></th>
+      <td><%= b.title %></td>
+      <td><%= link_to 'Edit', edit_bug_path(b)%></td>
+      <td><%= link_to "View Bug", bug_path(b)%></td>
+      <td><%= link_to 'Remove', project_path(b), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
   <% end %>
+  </tbody>
 </table>
