@@ -4,7 +4,8 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
 
   def index
-    @project = Project.all
+    @project = policy_scope(Project)
+    # @project = Project.all
   end
 
   def show; end
@@ -25,15 +26,19 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @project
+  end
 
   def update
+    authorize @project
     @project.update(project_params)
 
     redirect_to project_path(@project)
   end
 
   def destroy
+    authorize @project
     @project.destroy
 
     redirect_to projects_path

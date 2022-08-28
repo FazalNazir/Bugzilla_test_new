@@ -5,18 +5,22 @@
     </div>
 
     <div class="field form-group">
-      
         <%= form.label :Project_ID,class:"form-label" %><br>
         <%= form.text_field :proj_id,class:"form-control",value: params[:id], readonly: true, required: true%>
     </div>
 
     <div class="field form-group">
         <%= form.label :Solver_ID,class:"form-label" %><br>
-        <%= form.text_field :solver_id,class:"form-control"%>
+        <%= form.collection_select(:solver_id, Developer.all, :id, :name, { prompt: 'Select a Solver', selected: @bug.solver_id }, { class: 'form-control', required: true }) %>
+
     </div>
     <div class="field form-group">
         <%= form.label :Creator_ID,class:"form-label" %><br>
-        <%= form.text_field :creator_id,class:"form-control", required: true %>
+        <%= form.text_field :creator_id, value: current_user.id,class:"form-control", readonly: true,required: true %>
+    </div>
+     <div class="field form-group">
+        <%= form.label :Task_Description,class:"form-label" %><br>
+        <%= form.text_field :description,class:"form-control" %>
     </div>
     <div class="field form-group">
         <%= form.label :Deadline,class:"form-label" %><br>

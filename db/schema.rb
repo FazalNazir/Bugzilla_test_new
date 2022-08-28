@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_24_144403) do
+ActiveRecord::Schema.define(version: 2022_08_26_150009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2022_08_24_144403) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "assignments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_assignments_on_project_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
+  end
+
   create_table "bugs", force: :cascade do |t|
     t.string "title"
     t.datetime "deadline"
@@ -46,6 +55,7 @@ ActiveRecord::Schema.define(version: 2022_08_24_144403) do
     t.bigint "proj_id"
     t.bigint "creator_id"
     t.bigint "solver_id"
+    t.string "description"
     t.index ["creator_id"], name: "index_bugs_on_creator_id"
     t.index ["proj_id"], name: "index_bugs_on_proj_id"
     t.index ["solver_id"], name: "index_bugs_on_solver_id"
@@ -61,13 +71,6 @@ ActiveRecord::Schema.define(version: 2022_08_24_144403) do
     t.index ["creator_id"], name: "index_projects_on_creator_id"
     t.index ["developer_id"], name: "index_projects_on_developer_id"
     t.index ["tester_id"], name: "index_projects_on_tester_id"
-  end
-
-  create_table "projects_users", id: false, force: :cascade do |t|
-    t.bigint "project_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["project_id", "user_id"], name: "index_projects_users_on_project_id_and_user_id"
-    t.index ["user_id", "project_id"], name: "index_projects_users_on_user_id_and_project_id"
   end
 
   create_table "users", force: :cascade do |t|

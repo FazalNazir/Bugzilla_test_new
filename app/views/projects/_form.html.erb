@@ -5,12 +5,12 @@
     </div>
     
     <div class="field form-group">
-        <%= form.label :Developer_ID,class:"form-label" %><br>
-        <%= form.text_field :developer_id,class:"form-control", required: true %>
+        <%= form.label :Choose_Developer,class:"form-label" %><br>
+        <%= form.collection_select(:develope_id, Developer.all, :id, :name, { prompt: 'Select a Developer', selected: @project.developer_id }, { class: 'form-control', required: true }) %>
     </div>
     <div class="field form-group">
-        <%= form.label :Tester_ID,class:"form-label" %><br>
-        <%= form.text_field :tester_id,class:"form-control", required: true %><br>
+        <%= form.label :Choose_Tester,class:"form-label" %><br>
+        <%= form.collection_select(:tester_id, QualityAssurance.all, :id, :name, { prompt: 'Select a Tester', selected: @project.tester_id }, { class: 'form-control', required: true }) %>
     </div>
     <div class="field form-group">
         <%= form.label :Creator_ID,class:"form-label" %><br>
