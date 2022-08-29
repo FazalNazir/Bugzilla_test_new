@@ -10,9 +10,15 @@ class BugPolicy < ApplicationPolicy
         scope.all
       elsif user.Developer?
         # byebug
-        scope.where(solver_id: user.id, proj_id: Project.first.where(developer_id: user.id).pluck(:id))
+        scope.where(solver_id: user.id, proj_id: Project.where(developer_id: user.id).pluck(:id))
+      else
+        raise Pundit::NotAuthorizedError
       end
     end
+  end
+
+  def index?
+    user.Developer? || user.QualityAssurance?
   end
 
   def show?

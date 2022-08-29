@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Bug model class
 class Bug < ApplicationRecord
   has_one_attached :image
   self.inheritance_column = :_type_disabled
@@ -9,5 +10,7 @@ class Bug < ApplicationRecord
 
   enum type: { Feature: 1, Bug: 2 }
   enum status: { New: 1, Started: 2, Completed: 3, Resolved: 4 }
-  validates :title, :status, :type, presence: true
+  validates :title, presence: { message: 'Title is required' }
+  validates :status, presence: { message: 'Status is compulsory' }
+  validates :type, presence: { message: 'Type is compulsory' }
 end
