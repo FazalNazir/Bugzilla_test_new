@@ -9,5 +9,6 @@ class Project < ApplicationRecord
   belongs_to :tester, class_name: 'QualityAssurance'
 
   validates :title, :creator_id, :developer_id, :tester_id, presence: true
-  validates :title, uniqueness: true
+  validates :title, length: { maximum: 600,
+                              too_long: '%<count>s characters is the maximum allowed' }
 end

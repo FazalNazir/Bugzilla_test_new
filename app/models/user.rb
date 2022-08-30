@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :projects, through: :assignments
   enum type: { Manager: 1, Developer: 2, QualityAssurance: 3 }
 
-  validates :name, :email, :password, :type, presence: true
+  validates :name, :email, :password, presence: true
   validates :email, format: { with: /\A([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})\z/i }
+  validates :name, length: { maximum: 50,
+                             too_long: '%<count>s characters is the maximum allowed' }
 end
