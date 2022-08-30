@@ -2,8 +2,9 @@
 
 class Bug < ApplicationRecord
   has_one_attached :image
-  validates :image, file_size: { less_than_or_equal_to: 300.kilobytes },
-                    file_content_type: { allow: ['image/jpeg', 'image/png'] }
+  validates :image, size: { less_than: 100.megabytes, message: 'is too large' }, content_type: %i[png jpg jpeg]
+  # validates :image, file_size: { less_than_or_equal_to: 300.kilobytes },
+  #                   file_content_type: { allow: ['image/jpeg', 'image/png'] }
   self.inheritance_column = :_type_disabled
   belongs_to :solver, class_name: 'Developer'
   belongs_to :creator, class_name: 'QualityAssurance'

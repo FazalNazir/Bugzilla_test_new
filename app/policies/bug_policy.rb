@@ -27,7 +27,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.QualityAssurance?
+    user.QualityAssurance? || user.Developer?
   end
 
   def destroy?
