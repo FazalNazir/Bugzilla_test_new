@@ -25,5 +25,3 @@ production:
   host: localhost
   username: asad
   password: 'password'
-# production:
-#   url: <%= ENV['DATABASE_URL'] %> 
