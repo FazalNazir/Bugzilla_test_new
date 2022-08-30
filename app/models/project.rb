@@ -7,7 +7,8 @@ class Project < ApplicationRecord
   belongs_to :creator, class_name: 'Manager'
   belongs_to :developer, class_name: 'Developer'
   belongs_to :tester, class_name: 'QualityAssurance'
+  # rescue_from ActiveRecord::RecordNotUnique, with: :my_rescue_method
 
   validates :title, :creator_id, :developer_id, :tester_id, presence: true
-  validates :title, uniqueness: true
+  # validates :title, uniqueness: true
 end

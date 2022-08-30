@@ -8,8 +8,10 @@ class ProjectPolicy < ApplicationPolicy
     def resolve
       if user.Developer?
         scope.where(developer_id: user.id)
+      elsif user.QualityAssurance?
+        scope.where(tester_id: user.id)
       else
-        scope.all
+        scope.where(creator_id: user.id)
       end
     end
   end
