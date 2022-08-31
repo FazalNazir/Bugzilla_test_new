@@ -4,14 +4,6 @@
 class BugPolicy < ApplicationPolicy
   # Scope for Bug's Policies
   class Scope < Scope
-    # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   if user.QualityAssurance?
-    #     scope.all
-    #   elsif user.Developer?
-    #     scope.where(solver_id: user.id, proj_id: params[:id])
-    #   end
-    # end
   end
 
   def index?
@@ -19,15 +11,15 @@ class BugPolicy < ApplicationPolicy
   end
 
   def show?
-    user.QualityAssurance? || user.Developer?
+    index?
   end
 
   def update?
-    user.QualityAssurance? || user.Developer?
+    index?
   end
 
   def edit?
-    user.QualityAssurance? || user.Developer?
+    index?
   end
 
   def destroy?

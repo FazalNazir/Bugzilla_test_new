@@ -5,7 +5,6 @@ class ProjectsController < ApplicationController
 
   def index
     @project = policy_scope(Project)
-    # @project = Project.all
   end
 
   def show; end

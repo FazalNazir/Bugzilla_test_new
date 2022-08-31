@@ -16,11 +16,15 @@ class ProjectPolicy < ApplicationPolicy
     end
   end
 
-  def update?
+  def index?
     user.Manager?
   end
 
+  def update?
+    index?
+  end
+
   def destroy?
-    user.Manager?
+    index?
   end
 end
