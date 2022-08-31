@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Module for helper of Projects
 module ProjectsHelper
   def options_for_user_type
     [

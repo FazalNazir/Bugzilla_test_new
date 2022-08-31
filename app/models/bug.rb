@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# Bug model class
 class Bug < ApplicationRecord
   has_one_attached :image
   validates :image, size: { less_than: 5.megabytes, message: 'is too large' }, content_type: %i[png jpg jpeg]
+ 
   self.inheritance_column = :_type_disabled
   belongs_to :solver, class_name: 'Developer'
   belongs_to :creator, class_name: 'QualityAssurance'

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Module for helper of Bugs
 module BugsHelper
   def options_for_bug_status
     [

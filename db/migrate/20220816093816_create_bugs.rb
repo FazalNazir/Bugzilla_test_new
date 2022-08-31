@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Migration to create tabel Bugs
 class CreateBugs < ActiveRecord::Migration[5.2]
   def change
     create_table :bugs, id: false, primary_key: :b_id do |t|
