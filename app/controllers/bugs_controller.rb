@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
+# Controller for Bugs
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[show edit update destroy]
   def index
-    @bug = Bug.all
+    @bug = policy_scope(Bug)
   end
 
-  def show; end
+  def show
+    authorize @bug
+  end
 
   def new
     @bug = Bug.new
@@ -14,7 +17,6 @@ class BugsController < ApplicationController
 
   def create
     @bug = Bug.create(bug_params)
-
     if @bug.save
       flash[:notice] = 'Bug successfully added!'
       redirect_to bug_path(@bug)
@@ -24,16 +26,15 @@ class BugsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @bug
+  end
 
   def update
+    authorize @bug
     @bug.update(bug_params)
 
     redirect_to bug_path(@bug)
-  end
-
-  def updatestatus
-
   end
 
   def destroy
@@ -46,11 +47,9 @@ class BugsController < ApplicationController
 
   def bug_params
     params.require(:bug).permit(:title, :creator_id, :solver_id, :proj_id, :deadline, :status, :type, :image)
-    
   end
 
   def set_bug
     @bug = Bug.find(params[:id])
   end
-
 end

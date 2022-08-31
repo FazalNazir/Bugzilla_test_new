@@ -1,29 +1,44 @@
-<div class='card flex-container d-flex flex-row p-3 mt-3 justify-content-around'>
-    <div class=' flex-col '>
-     <h1><%= @bug.title %></h1>
-      <div class="field">
-       <p><strong>Title: </strong> <%= @bug.title %></p><br />
-      </div>
-
-      <div class="field">
-       <p><strong>Project: </strong> <%= @bug.proj_id %></p><br />
-      </div>
-    
-      <div class="field">
-        <p><strong>Developer: </strong> <%= @bug.solver_id %></p><br />
-      </div>
-      <div class="field">
-        <p><strong>Creator_ID: </strong> <%= @bug.creator_id %></p><br />
-      </div>
-      <div class="field form-group">
-        <p><strong>Deadline: </strong> <%= @bug.deadline %></p><br />
-      </div>
-
-      <div class="field">
-        <p><strong>Status: </strong> <%= @bug.status %></p><br />  </div>
-      <div class="field">
-        <p><strong>Type: </strong> <%= @bug.type %></p><br />
-      </div>
+<div class='col-md-12 card m-3 p-3'>
+  <div class='card-header text-center'>
+    <h1><%= @bug.title %></h1>
+  </div>
+  <div class='row card-body'>
+    <div class='col-md-6 '>
+      <table class="table caption-top">
+        <caption>Details of Bug</caption>
+        <tbody>
+          <tr>
+            <th scope="col">Bug Title</th>
+            <td><%= @bug.title %></td>
+          </tr>
+          <tr>
+            <th scope="col">Project ID</th>
+            <td><%= @bug.proj_id %></td>
+          </tr>
+          <tr>
+            <th scope="col">Creator ID</th>
+            <td><%= @bug.creator_id %></td>
+          </tr>
+          <tr>
+            <th scope="col">Developer ID</th>
+            <td><%= @bug.solver_id %></td>
+          </tr>
+          <tr>
+            <th scope="col">Bug Status</th>
+            <td><%= @bug.status %></td>
+          </tr>
+          <tr>
+            <th scope="col">Type</th>
+            <td><%= @bug.type %></td>
+          </tr>
+          <%if @bug.deadline?%>
+            <tr>
+              <th scope="col">Deadline</th>
+              <td><%= @bug.deadline %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
       <% if current_user.Developer?%>
         <div>
           <%= form_with model: [@bug] do |form| %>
@@ -34,19 +49,29 @@
               <% else %>
                 <%= form.select :status, options_for_bug_status,{}, class: "form-control"%>
               <% end %>
-            </div><br>
+            </div>
+            <br>
             <button type="submit" class="btn btn-primary">Update Status</button>
           <% end %>
         </div>
       <% end %>
-      
     </div>
-    <div class="field  flex-col w-50">
+    <div class='col-md-6 '>
+      <div class="row">
         <% if @bug.image.attached? %>
           <%= image_tag(url_for(@bug.image),class: "w-100")%>
         <% else %>
           <p>No screenshot was stored</p>
         <% end %>
+      </div>
     </div>
-      
+  </div>
+  <div class="row text-center">
+        <p><%= @bug.description%></p>
+  </div>
+  <div class="row">
+    <%if current_user.QualityAssurance?%>
+      <%= button_to 'Edit', edit_bug_path(@bug), method: 'get', class: 'btn mt-2 btn-primary'%>
+    <% end %>
+  </div>
 </div>

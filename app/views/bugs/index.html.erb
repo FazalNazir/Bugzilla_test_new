@@ -3,9 +3,7 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Bug Title</th>
-      <th scope="col">Edit Bug</th>
       <th scope="col">View Bugs</th>
-      <th scope="col">Delete Project</th>
     </tr>
   </thead>
   <tbody>
@@ -13,9 +11,7 @@
     <tr>
       <th> <%= b.id %></th>
       <td><%= b.title %></td>
-      <td><%= link_to 'Edit', edit_bug_path(b)%></td>
       <td><%= link_to "View Bug", bug_path(b)%></td>
-      <td><%= link_to 'Remove', project_path(b), method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
   </tbody>

@@ -5,7 +5,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_and_belongs_to_many :projects, dependent: :destroy
+
+  has_many :assignments, dependent: :destroy
+  has_many :projects, through: :assignments
   enum type: { Manager: 1, Developer: 2, QualityAssurance: 3 }
 
   validates :name, :email, :password, presence: true

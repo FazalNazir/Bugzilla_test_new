@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
+# Application class for Policies
 class ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
     @record = record
   end
@@ -37,6 +37,7 @@ class ApplicationPolicy
     false
   end
 
+  # Scope for policies
   class Scope
     def initialize(user, scope)
       @user = user
