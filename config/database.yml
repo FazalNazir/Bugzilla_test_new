@@ -18,10 +18,4 @@ test:
 staging:
   url: <%= ENV['DATABASE_URL'] %>
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: bugzilla_db_development
-  pool: 5
-  host: localhost
-  username: asad
-  password: 'password'
+  url: <%= ENV['DATABASE_URL'] %> 

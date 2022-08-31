@@ -4,7 +4,8 @@
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[show edit update destroy]
   def index
-    @bug = policy_scope(Bug)
+    @project = Project.find(params[:id])
+    @bug = @project.bugs
   end
 
   def show

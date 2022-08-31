@@ -9,4 +9,6 @@ module ProjectsHelper
       %w[QualityAssurance QualityAssurance]
     ]
   end
+
+  def my_rescue_method; end
 end

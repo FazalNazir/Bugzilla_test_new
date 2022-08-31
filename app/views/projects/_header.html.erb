@@ -14,15 +14,8 @@
             <%= link_to 'Edit Profile', edit_user_registration_path, class:"nav-link active"%>
           </li>
           <li class="nav-item">
-              <%=link_to 'Projects', projects_path, class:"nav-link active"%>
+            <%= link_to 'Projects', projects_path, class:"nav-link active"%>
           </li>
-          <% if current_user.Developer? || current_user.QualityAssurance? %>
-            <li class="nav-item">
-              <%=link_to 'Bugs', bugs_path, class:"nav-link active"%>
-            </li>
-          <% end %>
-
-
         <%else%>
           <li class="nav-item">
             <%= link_to 'Sign up', new_user_registration_path, class:"nav-link active"%>
