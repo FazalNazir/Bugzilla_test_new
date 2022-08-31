@@ -30,4 +30,4 @@ Lint/AmbiguousBlockAssociation:
     - spec/**/*
 
 Style/Documentation:
-  Enabled: false
+  Enabled: true
