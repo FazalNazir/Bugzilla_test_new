@@ -7,7 +7,6 @@
 
       <div class="field">
        <p><strong>Project: </strong> <%= @bug.proj_id %></p><br />
-        
       </div>
     
       <div class="field">
@@ -27,7 +26,7 @@
       </div>
       <% if current_user.Developer?%>
         <div>
-          <%= form_for @bug do |form| %>
+          <%= form_with model: [@bug] do |form| %>
             <div class="field form-group">
               <%= form.label :Change_Status,class:"form-label" %><br />
               <% if @bug.type=='Feature'%>
@@ -35,14 +34,14 @@
               <% else %>
                 <%= form.select :status, options_for_bug_status,{}, class: "form-control"%>
               <% end %>
-            </div>
+            </div><br>
             <button type="submit" class="btn btn-primary">Update Status</button>
           <% end %>
         </div>
       <% end %>
       
     </div>
-    <div class="field  flex-col w-25">
+    <div class="field  flex-col w-50">
         <% if @bug.image.attached? %>
           <%= image_tag(url_for(@bug.image),class: "w-100")%>
         <% else %>

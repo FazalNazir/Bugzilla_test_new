@@ -1,40 +1,4 @@
 <div class='container card p-3 mt-3'>
     <h1>Edit Bug</h1> 
-
-     <%= form_for @bug do |form| %>
-      <div class="field form-group">
-        <%= form.label :title,class:"form-label" %><br>
-        <%= form.text_field :title,class:"form-control", required: true %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :Project_ID,class:"form-label" %><br>
-        <%= form.text_field :proj_id,class:"form-control", required: true %>
-      </div>
-    
-      <div class="field form-group">
-        <%= form.label :Solver_ID,class:"form-label" %><br>
-        <%= form.text_field :solver_id,class:"form-control", required: true %>
-      </div>
-      <div class="field form-group">
-        <%= form.label :Creator_ID,class:"form-label" %><br>
-        <%= form.text_field :creator_id,class:"form-control", required: true %><br>
-      </div>
-      <div class="field form-group">
-        <%= form.label :Type,class:"form-label" %><br />
-        <%= form.select :type, options_for_type,{},:class=>"form-control"%>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :Deadline,class:"form-label" %><br>
-        <%= form.date_field :deadline, class:"form-control" %><br>
-      </div>
-      
-      <div class="field form-group">
-        <%= form.label :Screenshot,class:"form-label" %><br />
-        <%= form.file_field :image%>
-      </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <% end %>
+    <%= render 'form'%>
 </div>
