@@ -2,7 +2,7 @@
 <%= render "devise/shared/error_messages", resource: @bug %>
   <div class="field form-group">
     <%= form.label :title, class:"form-label" %><br>
-    <%= form.text_field :title, class:"form-control", required: true %>
+    <%= form.text_field :title, class:"form-control",maxlength: 30, required: true %>
   </div>
   <div class="field form-group">
     <%= form.hidden_field :proj_id,value: @project.id, readonly: true%>
