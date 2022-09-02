@@ -1,23 +1,21 @@
-<%= form_for @project do |form| %>
+<%= form_with(model: @project, local: true) do |form| %>
 <%= render "devise/shared/error_messages", resource: @project %>
-    <div class="field form-group">
-        <%= form.label :title,class:"form-label" %><br>
-        <%= form.text_field :title,class:"form-control", required: true %>
-    </div>
-    
-    <div class="field form-group">
-        <%= form.label :Choose_Developer,class:"form-label" %><br>
-        <%= form.collection_select(:developer_id, Developer.all, :id, :name, { prompt: 'Select a Developer', selected: @project.developer_id }, { class: 'form-control', required: true }) %>
-    </div>
-    <div class="field form-group">
-        <%= form.label :Choose_Tester,class:"form-label" %><br>
-        <%= form.collection_select(:tester_id, QualityAssurance.all, :id, :name, { prompt: 'Select a Tester', selected: @project.tester_id }, { class: 'form-control', required: true }) %>
-    </div>
-    <div class="field form-group">
-        <%= form.label :Creator_ID,class:"form-label" %><br>
-        <%= form.number_field :creator_id,class:"form-control", creator_id: :project_creator_id, value: current_user.id, readonly: true, required: true %>
-        <br>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <%= link_to "Back", :back, class:"btn btn-primary" %>
-    <% end %>
+ <div class="field form-group">
+    <%= form.label :title,class:"form-label" %><br>
+    <%= form.text_field :title, class:"form-control", required: true  %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :Choose_Developer,class:"form-label" %><br>
+    <%= form.collection_select(:developer_id, @devs, :id, :name, { prompt: 'Select a Developer', selected: @project.developer_id }, { class: 'form-control', required: true }) %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :Choose_Tester,class:"form-label" %><br>
+    <%= form.collection_select(:tester_id, @qas, :id, :name, { prompt: 'Select a Tester', selected: @project.tester_id }, { class: 'form-control', required: true }) %>
+  </div>
+  <div class="field form-group">
+    <%= form.hidden_field :creator_id, value: current_user.id, readonly: true%>
+    <br>
+  </div>
+  <%= form.submit "Submit", class:"btn btn-primary" %>
+  <%= link_to "Back", :back, class:"btn btn-primary" %>
+<% end %>

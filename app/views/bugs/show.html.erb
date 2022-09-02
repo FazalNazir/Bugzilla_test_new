@@ -12,16 +12,16 @@
             <td><%= @bug.title %></td>
           </tr>
           <tr>
-            <th scope="col">Project ID</th>
-            <td><%= @bug.proj_id %></td>
+            <th scope="col">Project</th>
+            <td><%= Project.find(@bug.proj_id).title %></td>
           </tr>
           <tr>
-            <th scope="col">Creator ID</th>
-            <td><%= @bug.creator_id %></td>
+            <th scope="col">Creator</th>
+            <td><%= QualityAssurance.find(@bug.creator_id).name %></td>
           </tr>
           <tr>
-            <th scope="col">Developer ID</th>
-            <td><%= @bug.solver_id %></td>
+            <th scope="col">Developer</th>
+            <td><%= Developer.find(@bug.solver_id).name %></td>
           </tr>
           <tr>
             <th scope="col">Bug Status</th>
@@ -41,7 +41,7 @@
       </table>
       <% if current_user.Developer?%>
         <div>
-          <%= form_with model: [@bug] do |form| %>
+          <%= form_with model: [@project, @bug] do |form| %>
             <div class="field form-group">
               <%= form.label :Change_Status,class:"form-label" %><br />
               <% if @bug.type=='Feature'%>
@@ -71,7 +71,9 @@
   </div>
   <div class="row">
     <%if current_user.QualityAssurance?%>
-      <%= button_to 'Edit', edit_bug_path(@bug), method: 'get', class: 'btn mt-2 btn-primary'%>
+      <%= button_to 'Edit', edit_project_bug_path(@project), method: 'get', class: 'btn mt-2 btn-primary'%>
     <% end %>
+      <%= button_to 'Back', project_bugs_path(@project), method: 'get', class: 'btn mt-2 btn-primary'%>
+    
   </div>
 </div>

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   has_many :assignments, dependent: :destroy
   has_many :projects, through: :assignments
@@ -14,4 +14,6 @@ class User < ApplicationRecord
   validates :email, format: { with: /\A([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})\z/i }
   validates :name, length: { maximum: 50,
                              too_long: '%<count>s characters is the maximum allowed' }
+  scope :dev_only, -> { where(type: 'Developer') }
+  scope :qa_only, -> { where(type: 'QualityAssurance') }
 end

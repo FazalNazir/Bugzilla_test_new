@@ -9,7 +9,9 @@ AllCops:
   TargetRubyVersion: 2.7
   TargetRailsVersion: 5.2
   Exclude:
-    - 'db/schema.rb'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
     - 'node_modules/**/*'
     - 'vendor/bundle/**/*'
     - 'bin/**/*'

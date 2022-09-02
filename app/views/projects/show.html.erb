@@ -12,16 +12,16 @@
                     <td><%= @project.title %></td>
                     </tr>
                     <tr>
-                    <th scope="col">Project Manager ID</th>
-                    <td><%= @project.creator_id %></td>
+                    <th scope="col">Project Manager</th>
+                    <td><%= Manager.find(@project.creator_id).name %></td>
                     </tr>
                     <tr>
-                    <th scope="col">Project Developer ID</th>
-                    <td><%= @project.developer_id %></td>
+                    <th scope="col">Project Developer</th>
+                    <td><%= Developer.find(@project.developer_id).name %></td>
                     </tr>
                     <tr>
-                    <th scope="col">Project QA ID</th>
-                    <td><%= @project.tester_id %></td>
+                    <th scope="col">Project QA</th>
+                    <td><%= QualityAssurance.find(@project.tester_id).name %></td>
                     </tr>
                 </tbody>
             </table>
@@ -30,10 +30,11 @@
             <div class="p-3" role="group" aria-label="Vertical button group">
                 <%if current_user.QualityAssurance?%>
                     <p>You have logged in as a Quality Assurance Engineer <%=@project.title%>. You can only Add bugs to this project.</p>
-                    <%= link_to 'Add Bugs', new_bug_path(id: @project.id), class: 'btn mt-2 btn-primary'%>
+                    <%= link_to 'Add Bugs', new_project_bug_path(@project), class: 'btn mt-2 btn-primary'%>
+                    <%= link_to 'Display Bugs', project_bugs_path(@project.id), class: 'btn mt-2 btn-primary'%>
                 <% elsif current_user.Developer? %>
                     <p>You have logged in as a Developer to <%=@project.title%>. You can only access asigned bugs to this project.</p>
-                    <%= link_to 'Display Bugs', bugs_path(id: @project.id), class: 'btn mt-2 btn-primary'%>
+                    <%= link_to 'Display Bugs', project_bugs_path(@project), class: 'btn mt-2 btn-primary'%>
                 <% elsif current_user.Manager? %>
                     <p>You have logged in as a Manager to <%=@project.title%>. You have full rights to this project.</p>
                     <%= link_to 'Edit Project', edit_project_path(@project), class: 'btn mt-2 btn-primary'%>

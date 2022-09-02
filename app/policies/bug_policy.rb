@@ -7,22 +7,32 @@ class BugPolicy < ApplicationPolicy
   end
 
   def index?
-    user.QualityAssurance? || user.Developer?
+    if @user.QualityAssurance?
+      @record.all
+    elsif @user.Developer?
+      @record.where(solver_id: @user.id)
+    end
   end
 
   def show?
-    index?
+    if @user.QualityAssurance?
+      @record
+    elsif @user.Developer?
+      @record.solver_id == @user.id
+    end
   end
 
   def update?
-    index?
+    if @user.QualityAssurance?
+      @record.all
+    elsif @user.Developer?
+      @record.solver_id == @user.id
+    end
   end
 
   def edit?
-    index?
+    @user.QualityAssurance?
   end
 
-  def destroy?
-    user.QualityAssurance?
-  end
+  def destroy?; end
 end

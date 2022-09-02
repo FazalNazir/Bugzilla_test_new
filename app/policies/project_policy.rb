@@ -9,7 +9,7 @@ class ProjectPolicy < ApplicationPolicy
       if user.Developer?
         scope.where(developer_id: user.id)
       elsif user.QualityAssurance?
-        scope.where(tester_id: user.id)
+        scope.all
       else
         scope.where(creator_id: user.id)
       end
@@ -20,8 +20,20 @@ class ProjectPolicy < ApplicationPolicy
     user.Manager?
   end
 
+  def new?
+    index?
+  end
+
   def update?
     index?
+  end
+
+  def show?
+    if @user.Developer?
+      @record.developer_id == @user.id
+    else
+      Project.all
+    end
   end
 
   def destroy?
