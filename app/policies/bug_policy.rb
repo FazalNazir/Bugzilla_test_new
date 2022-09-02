@@ -15,19 +15,15 @@ class BugPolicy < ApplicationPolicy
   end
 
   def show?
-    if @user.QualityAssurance?
-      @record
-    elsif @user.Developer?
-      @record.solver_id == @user.id
-    end
+    @user.QualityAssurance? || (@user.Developer? && @record.solver_id == @user.id)
   end
 
   def update?
-    if @user.QualityAssurance?
-      @record.all
-    elsif @user.Developer?
-      @record.solver_id == @user.id
-    end
+    @user.QualityAssurance? || (@user.Developer? && @record.solver_id == @user.id)
+  end
+
+  def new?
+    @user.QualityAssurance?
   end
 
   def edit?
