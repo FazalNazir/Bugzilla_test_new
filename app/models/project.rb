@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   belongs_to :tester, class_name: 'QualityAssurance'
 
   validates :title, presence: true, length: { maximum: 20 }
-  validates :developer_id, optional: true
-  validates :tester_id, optional: true
+  validates :developer_id, presence: true
+  validates :tester_id, presence: true
   validates :creator_id, presence: true
 end
