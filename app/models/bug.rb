@@ -11,6 +11,7 @@ class Bug < ApplicationRecord
 
   enum type: { Feature: 1, Bug: 2 }
   enum status: { New: 1, Started: 2, Completed: 3, Resolved: 4 }
+
   validates :title, presence: true
   validates :title, length: { maximum: 30,
                               too_long: '%<count>s characters is the maximum allowed' }
