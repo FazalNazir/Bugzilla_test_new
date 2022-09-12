@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { create(:user) }
 
   describe 'Validations' do
     it 'is valid with valid attributes' do
@@ -23,8 +23,13 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
 
-    it 'requires the email to look like an email' do
-      user.email = 'brown'
+    it 'requires the valid email' do
+      user.email = Faker::Name.name
+      expect(user).not_to be_valid
+    end
+
+    it 'requires the username' do
+      user.name = ''
       expect(user).not_to be_valid
     end
 

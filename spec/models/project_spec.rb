@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  let!(:project) { FactoryBot.create(:project) }
+  let!(:project) { create(:project) }
 
   describe 'Validations' do
     it 'is valid with valid attributes' do
@@ -13,6 +13,10 @@ RSpec.describe Project, type: :model do
       expect(project).not_to be_valid
     end
 
+    it { is_expected.to validate_presence_of(:creator_id) }
+    it { is_expected.to validate_presence_of(:tester_id) }
+    it { is_expected.to validate_presence_of(:developer_id) }
+    it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_length_of(:title).is_at_most(20).with_message('20 characters is the maximum allowed') }
   end
 
