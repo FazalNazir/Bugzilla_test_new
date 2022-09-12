@@ -23,6 +23,11 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
 
+    it 'requires the email to look like an email' do
+      user.email = 'brown'
+      expect(user).not_to be_valid
+    end
+
     it { is_expected.to validate_length_of(:name).is_at_most(50).with_message('50 characters is the maximum allowed') }
   end
 
