@@ -14,7 +14,7 @@ class Bug < ApplicationRecord
 
   validates :title, presence: true
   validates :title, length: { maximum: 30,
-                              too_long: '%<count>s characters is the maximum allowed' }
+                              too_long: '30 characters is the maximum allowed' }
   validates :status, presence: true
   validates :type, presence: true
 end

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def handle_exception(_error)
-    flash[:alert] = 'You are trying to perform an Illigal action'
+    flash[:alert] = 'Record not found'
     redirect_to request.referer || root_path
   end
 

@@ -12,6 +12,7 @@ test:
   encoding: unicode
   database: bugzilla_db_test
   pool: 5
+  host: localhost
   username: asad
   password: 'password'
 

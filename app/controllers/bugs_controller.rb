@@ -21,6 +21,7 @@ class BugsController < ApplicationController
 
   def create
     @bug = @project.bugs.build(bug_params)
+    authorize @bug
     if @bug.save
       flash[:notice] = 'Bug successfully added!'
       redirect_to project_bug_path(@project, @bug)
@@ -37,7 +38,8 @@ class BugsController < ApplicationController
   def update
     authorize @bug
     if @bug.update(bug_params)
-      redirect_to project_bug_path(@project), success: 'Bug successfully Updated'
+      flash[:notice] = 'Bug successfully Updated!'
+      redirect_to project_bug_path(@project)
     else
       flash[:alert] = 'Unable to update!'
       render :new

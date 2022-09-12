@@ -26,9 +26,15 @@ class BugPolicy < ApplicationPolicy
     @user.QualityAssurance?
   end
 
+  def create?
+    @user.QualityAssurance?
+  end
+
   def edit?
     @user.QualityAssurance?
   end
 
-  def destroy?; end
+  def destroy?
+    @user.QualityAssurance? && @record.creator_id == @user.id
+  end
 end

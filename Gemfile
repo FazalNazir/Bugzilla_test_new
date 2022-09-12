@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'simplecov', require: false
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap-sass'
@@ -58,16 +58,22 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers'
+
+  # gem 'selenium-webdriver'
+  # # Easy installation and use of chromedriver to run system tests with Chrome
+  # gem 'chromedriver-helper'
 end
 group :development, :test do
+  gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
 end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'active_storage_validations'
 gem 'pundit', '~> 2.2'

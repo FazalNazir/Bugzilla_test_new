@@ -14,13 +14,14 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    authorize @project
   end
 
   def create
     @project = Project.new(project_params)
     if @project.save
       flash[:notice] = 'Project successfully added!'
-      redirect_to projects_path
+      redirect_to project_path(@project)
     else
       flash[:alert] = 'Something wrong with your inputs!'
       render :new
