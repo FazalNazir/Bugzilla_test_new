@@ -7,7 +7,7 @@ RSpec.describe BugsController, type: :controller do
   let(:tester) { create(:QualityAssurance) }
   let(:project) { create(:project) }
   let(:bug) { create(:bug) }
-  let(:project_bug) { create(:bug, proj: project, creator: tester, solver: developer) }
+  let!(:project_bug) { create(:bug, proj: project, creator: tester, solver: developer) }
 
   describe 'authenticate' do
     it 'when logged in' do
@@ -46,13 +46,13 @@ RSpec.describe BugsController, type: :controller do
     it 'Developer Assigned' do
       login_user(developer)
       get :show, params: { id: project_bug.id, project_id: project.id }
-      expect(response).to render_template('show')
+      expect(assigns(:bug)).to eq(project_bug)
     end
 
     it 'QA Assigned' do
       login_user(tester)
       get :show, params: { id: project_bug.id, project_id: project.id }
-      expect(response).to render_template('show')
+      expect(assigns(:bug)).to eq(project_bug)
     end
 
     it 'Developer not Assigned' do
@@ -94,11 +94,11 @@ RSpec.describe BugsController, type: :controller do
 
     it 'create by QA' do
       login_user(tester)
-      post :create, params: { project_id: project.id, bug: { title: 'I am title', creator_id: bug.creator_id,
-                                                             solver_id: bug.solver_id,
-                                                             type: bug.type, status: bug.status } }
-
-      expect(flash[:notice]).to eq('Bug successfully added!')
+      expect do
+        post :create,
+             params: { project_id: project.id, bug: { title: 'Title', creator_id: project_bug.creator_id,
+                                                      proj_id: project_bug.proj_id, solver_id: project_bug.solver_id, type: project_bug.type } }
+      end.to change(Bug, :count).from(1)
     end
 
     it 'Failure case' do
@@ -127,9 +127,9 @@ RSpec.describe BugsController, type: :controller do
   describe 'bugs#update' do
     it 'update via QA' do
       login_user(tester)
-      put :update, params: { project_id: project.id, id: project_bug.id, bug: { title: 'I am title', creator_id: bug.creator_id,
-                                                                                solver_id: bug.solver_id,
-                                                                                type: bug.type, status: bug.status } }
+      put :update, params: { project_id: project.id, id: project_bug.id,
+                             bug: { title: 'I am title', creator_id: bug.creator_id, solver_id: bug.solver_id,
+                                    type: bug.type, status: bug.status } }
       expect(flash[:notice]).to eq('Bug successfully Updated!')
     end
 
@@ -147,9 +147,9 @@ RSpec.describe BugsController, type: :controller do
 
     it 'Failure of update' do
       login_user(tester)
-      put :update, params: { project_id: project.id, id: project_bug.id, bug: { id: bug.id, title: 'I am title', creator_id: 2323,
-                                                                                solver_id: bug.solver_id,
-                                                                                type: bug.type } }
+      put :update, params: { project_id: project.id, id: project_bug.id,
+                             bug: { id: bug.id, title: 'I am title',
+                                    creator_id: 2323, solver_id: bug.solver_id, type: bug.type } }
       expect(flash[:alert]).to eq('Unable to update!')
     end
   end
@@ -163,8 +163,9 @@ RSpec.describe BugsController, type: :controller do
 
     it 'Success destroy via QA' do
       login_user(tester)
-      delete :destroy, params: { project_id: project.id, id: project_bug.id }
-      expect(flash[:notice]).to eq('Bug successfully Deleted!')
+      expect do
+        delete :destroy, params: { project_id: project.id, id: project_bug.id }
+      end.to change(Bug, :count).from(1)
     end
 
     it 'Failure of destroy' do

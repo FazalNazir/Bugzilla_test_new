@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ProjectsController, type: :controller do
   let(:user) { create(:Manager) }
-  let(:project) { create(:project) }
+  let!(:project) { create(:project, creator: user) }
 
   before do
     login_user(user)
@@ -25,7 +25,8 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET show project' do
     it 'success case show method' do
       get :show, params: { id: project }
-      expect(response).to render_template('show')
+      # expect(response).to render_template('show')
+      expect(assigns(:project)).to eq(project)
     end
 
     it 'failure case of show' do
@@ -55,10 +56,11 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'GET create project' do
     it 'success for create' do
-      post :create, params: { project: { title: 'I am title', creator_id: project.creator_id,
-                                         developer_id: project.developer_id,
-                                         tester_id: project.tester_id } }
-      expect(flash[:notice]).to eq('Project successfully added!')
+      expect do
+        post :create, params: { project: { title: 'I am title', creator_id: project.creator_id,
+                                           developer_id: project.developer_id,
+                                           tester_id: project.tester_id } }
+      end.to change(Project, :count).from(2)
     end
 
     it 'failure case of create' do
@@ -100,8 +102,9 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'Get destroy project' do
     it 'success case for destroy method' do
-      delete :destroy, params: { id: project.id }
-      expect(response).to have_http_status(:found)
+      expect do
+        delete :destroy, params: { id: project.id }
+      end.to change(Project, :count).from(2)
     end
 
     it 'authorization case for destroy method' do
