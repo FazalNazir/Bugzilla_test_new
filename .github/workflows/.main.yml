@@ -56,7 +56,7 @@ jobs:
           bundle install
       - name: Set DB for actions
         run: |
-          rails db:setup
+          bin/rails db:setup
       - name: Run tests
         env:
           RAILS_ENV: test
