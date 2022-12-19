@@ -54,6 +54,9 @@ jobs:
       - name: Install required Gems
         run: |
           bundle install
+      - name: Set DB for actions
+        run: |
+          rails db:setup
       - name: Run tests
         env:
           RAILS_ENV: test
