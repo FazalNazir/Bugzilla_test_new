@@ -1,0 +1,22 @@
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Project Title</th>
+      <th scope="col">View Project</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @project.each do |project| %>
+    <tr>
+      <th> <%= project.id %></th>
+      <td><%= project.title %></td>
+      <td><%= link_to 'Display', project_path(project) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<br />
+<% if current_user.Manager? %>
+  <%= button_to 'Add a New Project', new_project_path, method: 'get', class: 'btn btn-primary'%>
+<% end %>

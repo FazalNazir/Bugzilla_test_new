@@ -1,0 +1,17 @@
+development: 
+  cloud_name: "bugsimages-22"
+  api_key: "912418821549497"
+  api_secret: "tuljXHj0M_ajJycsUFhI9DcTiiE"
+  secure: true
+
+production:
+  cloud_name: "bugsimages-22"
+  api_key: "912418821549497"
+  api_secret: "tuljXHj0M_ajJycsUFhI9DcTiiE"
+  secure: true
+
+test:
+  cloud_name: "bugsimages-22"
+  api_key: "912418821549497"
+  api_secret: "tuljXHj0M_ajJycsUFhI9DcTiiE"
+  secure: true

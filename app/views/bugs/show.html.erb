@@ -1,0 +1,79 @@
+<div class='col-md-12 card m-3 p-3'>
+  <div class='card-header text-center'>
+    <h1><%= @bug.title %></h1>
+  </div>
+  <div class='row card-body'>
+    <div class='col-md-6 '>
+      <table class="table caption-top">
+        <caption>Details of Bug</caption>
+        <tbody>
+          <tr>
+            <th scope="col">Bug Title</th>
+            <td><%= @bug.title %></td>
+          </tr>
+          <tr>
+            <th scope="col">Project</th>
+            <td><%= Project.find(@bug.proj_id).title %></td>
+          </tr>
+          <tr>
+            <th scope="col">Creator</th>
+            <td><%= QualityAssurance.find(@bug.creator_id).name %></td>
+          </tr>
+          <tr>
+            <th scope="col">Developer</th>
+            <td><%= Developer.find(@bug.solver_id).name %></td>
+          </tr>
+          <tr>
+            <th scope="col">Bug Status</th>
+            <td><%= @bug.status %></td>
+          </tr>
+          <tr>
+            <th scope="col">Type</th>
+            <td><%= @bug.type %></td>
+          </tr>
+          <%if @bug.deadline?%>
+            <tr>
+              <th scope="col">Deadline</th>
+              <td><%= @bug.deadline %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% if current_user.Developer?%>
+        <div>
+          <%= form_with model: [@project, @bug] do |form| %>
+            <div class="field form-group">
+              <%= form.label :Change_Status,class:"form-label" %><br />
+              <% if @bug.type=='Feature'%>
+                <%= form.select :status, options_for_feature_status,{}, class: "form-control"%>
+              <% else %>
+                <%= form.select :status, options_for_bug_status,{}, class: "form-control"%>
+              <% end %>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Update Status</button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class='col-md-6 '>
+      <div class="row">
+        <% if @bug.image.attached? %>
+          <%= image_tag(url_for(@bug.image),class: "w-100")%>
+        <% else %>
+          <p>No screenshot was stored</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row text-center">
+        <p><%= @bug.description%></p>
+  </div>
+  <div class="row">
+    <%if current_user.QualityAssurance?%>
+      <%= button_to 'Edit', edit_project_bug_path(@project), method: 'get', class: 'btn mt-2 btn-primary'%>
+    <% end %>
+      <%= button_to 'Back', project_bugs_path(@project), method: 'get', class: 'btn mt-2 btn-primary'%>
+    
+  </div>
+</div>

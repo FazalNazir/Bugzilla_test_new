@@ -1,0 +1,36 @@
+<%= form_for [@project, @bug] do |form| %>
+<%= render "devise/shared/error_messages", resource: @bug %>
+  <div class="field form-group">
+    <%= form.label :title, class:"form-label" %><br>
+    <%= form.text_field :title, class:"form-control",maxlength: 30, required: true %>
+  </div>
+  <div class="field form-group">
+    <%= form.hidden_field :proj_id,value: @project.id, readonly: true%>
+  </div>
+  <div class="field form-group">
+    <%= form.label :Solver_ID,class:"form-label" %><br>
+    <%= form.collection_select(:solver_id, @devs, :id, :name, { prompt: 'Select a Solver', selected: @bug.solver_id }, { class: 'form-control', required: true }) %>
+  </div>
+  <div class="field form-group">
+    <%= form.hidden_field :creator_id, value: current_user.id, readonly: true%>
+  </div>
+  <div class="field form-group">
+    <%= form.label :Task_Description,class:"form-label" %><br>
+    <%= form.text_field :description,class:"form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :Deadline,class:"form-label" %><br>
+    <%= form.date_field :deadline, class:"form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :Type,class:"form-label" %><br />
+    <%= form.select :type, options_for_type,{}, class:"form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :Screenshot,class:"form-label" %><br>
+    <%= form.file_field :image, class: 'form-control', direct_upload: true%><br />
+    <br>
+  </div>
+  <%= form.submit "Submit", class:"btn btn-primary" %>
+  <%= link_to "Back", :back, class:"btn btn-primary" %>
+<% end %>

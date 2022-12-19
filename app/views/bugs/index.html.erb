@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Bug Title</th>
+      <th scope="col">View Bugs</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @bugs.each do |b| %>
+    <tr>
+      <th> <%= b.id %></th>
+      <td><%= b.title %></td>
+      <td><%= link_to "View Bug", project_bug_path(@project, b)%></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
