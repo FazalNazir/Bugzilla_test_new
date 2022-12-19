@@ -1,0 +1,58 @@
+env:
+  RUBY_VERSION: 2.7.2
+  RAILS_ENV: test
+  DATABASE_URL: postgres://postgres:postgres@localhost
+  DATABASE_NAME: test
+  DATABASE_USERNAME: postgres
+  DATABASE_PASSWORD: "postgres"
+  DATABASE_HOST: "localhost"
+name: Rails workflow
+on: [push]
+jobs:
+  rubocop-test:
+    name: Rubocop
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+      - name: Check code
+        run: bundle exec rubocop
+  rspec-test:
+    name: RSpec
+    runs-on: ubuntu-20.04
+    services:
+      postgres:
+        image: postgres:13.8
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      redis:
+        image: redis:4.0
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+      - name: Create database
+        run: |
+          bundler exec rails db:create RAILS_ENV=test
+          bundler exec rails db:migrate RAILS_ENV=test
+      - name: Run tests
+        run: RSPEC_FORMATTER='progress' bundle exec rake
