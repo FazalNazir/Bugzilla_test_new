@@ -60,11 +60,7 @@ RSpec.describe ProjectsController, type: :controller do
         post :create, params: { project: { title: 'I am title', creator_id: project.creator_id,
                                            developer_id: project.developer_id,
                                            tester_id: project.tester_id } }
-<<<<<<< HEAD
-      end.to change(Project, :count).from(2)
-=======
       end.to change(Project, :count).from(1)
->>>>>>> master
     end
 
     it 'failure case of create' do
@@ -108,11 +104,7 @@ RSpec.describe ProjectsController, type: :controller do
     it 'success case for destroy method' do
       expect do
         delete :destroy, params: { id: project.id }
-<<<<<<< HEAD
-      end.to change(Project, :count).from(2)
-=======
       end.to change(Project, :count).from(1)
->>>>>>> master
     end
 
     it 'authorization case for destroy method' do
