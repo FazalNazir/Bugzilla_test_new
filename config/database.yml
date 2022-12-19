@@ -4,8 +4,13 @@ development:
   database: bugzilla_db_development
   pool: 5
   host: localhost
+<<<<<<< HEAD
   username: asad
   password: 'password'
+=======
+  username: postgres
+  password: '123456'
+>>>>>>> master
 
 test:
   adapter: postgresql
@@ -13,8 +18,13 @@ test:
   database: bugzilla_db_test
   pool: 5
   host: localhost
+<<<<<<< HEAD
   username: asad
   password: 'password'
+=======
+  username: postgres
+  password: '123456'
+>>>>>>> master
 
 staging:
   url: <%= ENV['DATABASE_URL'] %>

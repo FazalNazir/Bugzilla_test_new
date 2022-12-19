@@ -8,7 +8,10 @@ FactoryBot.define do
     password_confirmation { password }
     confirmed_at { 1.day.ago }
   end
+<<<<<<< HEAD
   
+=======
+>>>>>>> master
   factory :Manager, parent: :user, class: 'Manager'
   factory :Developer, parent: :user, class: 'Developer'
   factory :QualityAssurance, parent: :user, class: 'QualityAssurance'
