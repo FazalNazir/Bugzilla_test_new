@@ -43,6 +43,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: '2.7.2'
           bundler-cache: true
       - name: Install system dependencies
         run: |
@@ -59,4 +60,4 @@ jobs:
           DATABASE_URL: postgres://postgres:password@localhost:5432/bugzilla_db_test
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
-          rspec spec/
+          bundle exec rspec spec/
